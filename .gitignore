@@ -1,0 +1,51 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Source/working files (not needed for deployment)
+*.psd
+*.png
+!public/**/*.png
+CHAT_LOG.md
+
+# Large working images in root (keep only public/assets)
+backgroundcontact.psd
+newbackdrop.psd
+Gemini_Generated_Image_*
+*.jpeg
+*.webp
+!public/**/*.jpeg
+!public/**/*.webp
+
+# Root level working files
+/Untitled*.jpg
+/unnamed.jpg
+/poster1.jpg
+/a5a675ea1bdccb3ae06c60a4c4f40776.jpg
+/art-deco-*.webp
+/full_hd_retina.jpeg
+/images.jpeg
+/K33wU.png
+/f33fb2ef-*.jpeg
+/P0DqC3*.webp
