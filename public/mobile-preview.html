@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mobile Preview</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #1a1a1a;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    h1 {
+      color: #c4a882;
+      margin-bottom: 20px;
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+    .device-selector {
+      margin-bottom: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .device-selector button {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 8px 16px;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .device-selector button:hover {
+      background: #444;
+    }
+    .device-selector button.active {
+      background: #c4a882;
+      color: #000;
+      border-color: #c4a882;
+    }
+    .phone-frame {
+      background: #000;
+      border-radius: 40px;
+      padding: 12px;
+      box-shadow: 0 0 60px rgba(0,0,0,0.8), inset 0 0 2px rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .phone-frame::before {
+      content: '';
+      position: absolute;
+      top: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 24px;
+      background: #1a1a1a;
+      border-radius: 12px;
+    }
+    .phone-screen {
+      border-radius: 30px;
+      overflow: hidden;
+      background: #0a0806;
+    }
+    iframe {
+      border: none;
+      display: block;
+    }
+    .nav-buttons {
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+    }
+    .nav-buttons a {
+      background: #333;
+      color: #c4a882;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+    .nav-buttons a:hover {
+      background: #444;
+    }
+  </style>
+</head>
+<body>
+  <h1>MOBILE PREVIEW</h1>
+
+  <div class="device-selector">
+    <button onclick="setDevice(375, 812)" class="active">iPhone 14</button>
+    <button onclick="setDevice(390, 844)">iPhone 14 Pro</button>
+    <button onclick="setDevice(360, 800)">Android</button>
+    <button onclick="setDevice(414, 896)">iPhone Plus</button>
+  </div>
+
+  <div class="phone-frame" id="frame">
+    <div class="phone-screen" id="screen">
+      <iframe id="preview" src="/" width="375" height="812"></iframe>
+    </div>
+  </div>
+
+  <div class="nav-buttons">
+    <a href="/" target="preview">Home</a>
+    <a href="/biography" target="preview">Biography</a>
+    <a href="/posters" target="preview">Posters</a>
+    <a href="/contact" target="preview">Contact</a>
+  </div>
+
+  <script>
+    const iframe = document.getElementById('preview');
+    const screen = document.getElementById('screen');
+    const buttons = document.querySelectorAll('.device-selector button');
+
+    function setDevice(width, height) {
+      iframe.width = width;
+      iframe.height = height;
+      screen.style.width = width + 'px';
+      screen.style.height = height + 'px';
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Navigation buttons
+    document.querySelectorAll('.nav-buttons a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        iframe.src = link.getAttribute('href');
+      });
+    });
+  </script>
+</body>
+</html>

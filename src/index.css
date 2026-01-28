@@ -30,6 +30,7 @@
   --exit-red: #ff2a2a;
   --exit-red-dim: rgba(255, 42, 42, 0.3);
   --cinema-black: #0a0a0a;
+  --gold-accent: #c4a882;
 }
 
 * {
@@ -48,6 +49,38 @@ html, body, #root {
 body {
   font-family: 'Courier Prime', 'Courier New', monospace;
   color: var(--cinema-black);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 767px) {
+  html, body, #root {
+    overflow: auto;
+    overflow-x: hidden;
+    height: auto;
+    min-height: 100%;
+  }
+
+  /* Ensure smooth scrolling on iOS */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent horizontal scroll on mobile */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* Mobile typography adjustments */
+  body {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* Ensure tap targets are large enough */
+  a, button {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 /* Typewriter font for film titles */
@@ -136,4 +169,13 @@ body {
 
 .animate-slide {
   animation: slide-advance 0.2s ease-out;
+}
+
+/* Disable animations on mobile for better performance */
+@media (max-width: 767px) {
+  .animate-grain,
+  .animate-flicker,
+  .animate-intense-flicker {
+    animation: none;
+  }
 }

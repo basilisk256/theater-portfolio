@@ -7,6 +7,7 @@ import ContactSocials from './components/ContactSocials.jsx'
 import BiographyPage from './components/BiographyPage.jsx'
 import PostersPage from './components/PostersPage.jsx'
 import CommercialPage from './components/CommercialPage.jsx'
+import NowShowingPage from './components/NowShowingPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/biography" element={<BiographyPage />} />
         <Route path="/posters" element={<PostersPage />} />
         <Route path="/commercial" element={<CommercialPage />} />
+        <Route path="/now-showing" element={<NowShowingPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,

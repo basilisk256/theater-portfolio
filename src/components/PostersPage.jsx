@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const posters = [
   {
@@ -152,9 +153,28 @@ const pages = [
   },
 ];
 
+// All posters combined for mobile view
+const allPosters = [...posters, ...postersPage2, ...postersPage3];
+
+// Mobile poster images with high-res versions
+const mobilePosters = [
+  { mobile: '/assets/postermobile1.jpg', highRes: '/assets/poster-fishdelivery.jpg', title: 'Fish Delivery #95' },
+  { mobile: '/assets/postermobile2.jpg', highRes: '/assets/poster-frogandtoad.jpg', title: 'Frog and Toad Theme' },
+  { mobile: '/assets/postermobile3.jpg', highRes: '/assets/poster-nocaretown.jpg', title: 'Nocaretown' },
+  { mobile: '/assets/postermobile4.jpg', highRes: '/assets/poster-jealousbf.jpg', title: 'The Jealous Boyfriend' },
+  { mobile: '/assets/postermobile5.jpg', highRes: '/assets/poster-batch9e.jpg', title: 'Batch 9e' },
+  { mobile: '/assets/postermobile6.jpg', highRes: '/assets/poster-peachfuzz.jpg', title: 'Peach Fuzz' },
+  { mobile: '/assets/postermobile7.jpg', highRes: '/assets/poster-911.jpg', title: '1,690 Photographs of 9/11' },
+  { mobile: '/assets/postermobile8.jpg', highRes: '/assets/poster-peachfuzz-alt.jpg', title: 'Peach Fuzz (Alt)' },
+  { mobile: '/assets/postermobile9.jpg', highRes: '/assets/poster-peachfuzz-knives.jpg', title: 'Peach Fuzz (Knives)' },
+  { mobile: '/assets/postermobile10.jpg', highRes: '/assets/poster-jealousbf-alt.jpg', title: 'The Jealous Boyfriend (Alt)' },
+];
+
 export default function PostersPage() {
   const [selectedPoster, setSelectedPoster] = useState(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [mobilePosterIndex, setMobilePosterIndex] = useState(0);
+  const isMobile = useIsMobile();
 
   // Image aspect ratio
   const aspectRatio = 16 / 9;
@@ -170,6 +190,110 @@ export default function PostersPage() {
     setCurrentPage((prev) => (prev < totalPages - 1 ? prev + 1 : 0));
   };
 
+  const goToPrevMobilePoster = () => {
+    setMobilePosterIndex((prev) => (prev > 0 ? prev - 1 : mobilePosters.length - 1));
+  };
+
+  const goToNextMobilePoster = () => {
+    setMobilePosterIndex((prev) => (prev < mobilePosters.length - 1 ? prev + 1 : 0));
+  };
+
+  // Mobile layout - Full screen poster carousel
+  if (isMobile) {
+    return (
+      <div className="h-screen bg-[#0a0806] flex flex-col relative overflow-hidden">
+        {/* Full screen poster image - clickable */}
+        <img
+          src={mobilePosters[mobilePosterIndex].mobile}
+          alt={mobilePosters[mobilePosterIndex].title}
+          className="absolute inset-0 w-full h-full object-cover cursor-pointer"
+          style={{ objectPosition: 'center 40%' }}
+          onClick={() => setSelectedPoster(mobilePosters[mobilePosterIndex])}
+        />
+
+        {/* Poster navigation - right under poster */}
+        <div className="absolute bottom-[11%] left-0 right-0 flex justify-center">
+          <div className="flex items-center gap-8">
+            <button
+              onClick={goToPrevMobilePoster}
+              className="font-serif tracking-[0.15em] uppercase text-xl"
+              style={{
+                color: '#c4a882',
+                textShadow: '0 0 15px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
+              }}
+            >
+              ‹ Back
+            </button>
+            <span
+              className="text-base"
+              style={{ color: 'rgba(196, 168, 130, 0.5)' }}
+            >
+              {mobilePosterIndex + 1}/{mobilePosters.length}
+            </span>
+            <button
+              onClick={goToNextMobilePoster}
+              className="font-serif tracking-[0.15em] uppercase text-xl"
+              style={{
+                color: '#c4a882',
+                textShadow: '0 0 15px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
+              }}
+            >
+              Next ›
+            </button>
+          </div>
+        </div>
+
+        {/* Back to Site - at bottom */}
+        <div className="absolute bottom-[4%] left-0 right-0 flex justify-center">
+          <Link
+            to="/"
+            className="font-serif tracking-[0.15em] uppercase text-base"
+            style={{
+              color: '#c4a882',
+              textShadow: '0 0 15px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
+            }}
+          >
+            Back to Site
+          </Link>
+        </div>
+
+        {/* High-res poster modal */}
+        <AnimatePresence>
+          {selectedPoster && selectedPoster.highRes && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedPoster(null)}
+            >
+              <motion.div
+                className="relative max-h-[90vh] w-full flex flex-col items-center"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+              >
+                <img
+                  src={selectedPoster.highRes}
+                  alt={selectedPoster.title}
+                  className="max-h-[80vh] w-auto object-contain"
+                  style={{ boxShadow: '0 0 40px rgba(0,0,0,0.8)' }}
+                />
+                <p
+                  className="mt-4 font-serif tracking-wide text-lg"
+                  style={{ color: '#c4a882' }}
+                >
+                  {selectedPoster.title}
+                </p>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  // Desktop layout (unchanged)
   return (
     <div className="relative w-screen h-screen overflow-auto bg-[#0a0908] flex items-center justify-center">
       {/* Aspect ratio container - scales to fill viewport */}

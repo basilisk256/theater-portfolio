@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const contactLinks = [
   { label: 'EMAIL', url: 'mailto:wolskoluke@gmail.com', top: '6.5%', left: '9%', width: '18%', height: '12%', skewY: -1 },
@@ -13,24 +14,36 @@ const contactLinks = [
   { label: 'BACK TO SITE', path: '/', top: '83%', left: '10%', width: '22%', height: '9%', skewY: -9 },
 ];
 
-function SignHotspot({ label, url, path, top, left, width, height, skewY = 0 }) {
-  const [isHovered, setIsHovered] = useState(false);
+// Mobile hotspots - adjusted for cropped view
+const mobileContactLinks = [
+  { label: 'EMAIL', url: 'mailto:wolskoluke@gmail.com', top: '8%', left: '10%', width: '70%', height: '10%', skewY: 4 },
+  { label: 'INSTAGRAM', url: 'https://www.instagram.com/lukewolsko/', top: '21.5%', left: '10%', width: '85%', height: '8%', skewY: -1 },
+  { label: 'LINKEDIN', url: 'https://www.linkedin.com/in/luke-wolsko/', top: '31.5%', left: '10%', width: '85%', height: '8%', skewY: -1 },
+  { label: 'X', url: 'https://x.com/basilisk256', top: '42.5%', left: '10%', width: '20%', height: '8%', skewY: -9 },
+  { label: 'YOUTUBE', url: 'https://www.youtube.com/@lukewolsko', top: '52.5%', left: '10%', width: '70%', height: '8%', skewY: -3 },
+  { label: 'IMDB', url: 'https://www.imdb.com/name/nm15865993/', top: '62.5%', left: '10%', width: '45%', height: '8%', skewY: -8.5 },
+  { label: 'LETTERBOXD', url: 'https://letterboxd.com/lukewolsko/', top: '71.5%', left: '10%', width: '85%', height: '8%', skewY: -9 },
+  { label: 'BACK TO SITE', path: '/', top: '84.5%', left: '10%', width: '90%', height: '8%', skewY: -9 },
+];
 
+function SignHotspot({ label, url, path, top, left, width, height, skewY = 0, debug = false, isMobile = false }) {
   const content = (
-    <div
-      className="absolute z-20 cursor-pointer transition-all duration-300"
+    <motion.div
+      className="absolute z-20 cursor-pointer"
       style={{
         top,
         left,
         width,
         height,
         transform: skewY ? `skewY(${skewY}deg)` : 'none',
-        backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.3)' : 'transparent',
-        filter: isHovered ? 'blur(12px) brightness(1.3)' : 'none',
-        mixBlendMode: 'screen',
+        backgroundColor: debug ? 'rgba(255, 0, 0, 0.4)' : 'transparent',
+        cursor: 'pointer',
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      whileHover={!isMobile ? {
+        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 0 25px rgba(255, 255, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.1)',
+      } : {}}
+      transition={{ duration: 0.2 }}
     />
   );
 
@@ -46,10 +59,39 @@ function SignHotspot({ label, url, path, top, left, width, height, skewY = 0 }) 
   );
 }
 
+
 export default function ContactSocials() {
+  const isMobile = useIsMobile();
+
   // Image aspect ratio: 2816 x 1504
   const aspectRatio = 2816 / 1504;
 
+  // Mobile layout - same image as desktop, cropped to show just the signs
+  if (isMobile) {
+    return (
+      <div className="min-h-screen relative overflow-hidden bg-[#0a0f0a]">
+        {/* Background image - cropped to show left side with signs, no compression */}
+        <img
+          src="/assets/contactpagebackground.jpg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ objectPosition: '10% center' }}
+        />
+
+        {/* Mobile hotspots */}
+        {mobileContactLinks.map((link) => (
+          <SignHotspot
+            key={link.label}
+            {...link}
+            debug={false}
+            isMobile={true}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // Desktop layout (unchanged)
   return (
     <div className="relative w-full h-screen overflow-auto bg-[#0a0f0a] flex items-center justify-center">
       {/* Aspect ratio container - scales to fill viewport (may overflow) */}
@@ -77,8 +119,8 @@ export default function ContactSocials() {
             const left = 50 + Math.random() * 6; // 50-56% (past the tree, left of theater)
             const top = 25 + Math.random() * 15;  // 25-40% (horizon line, not sky)
             const size = Math.random() * 2 + 0.5;
-            const duration = Math.random() * 6 + 4; // 4-10 seconds per cycle
-            const delay = Math.random() * 10;
+            const duration = Math.random() * 3 + 3; // 3-6 seconds per cycle
+            const delay = Math.random() * 3;
             const brightness = i % 2 === 0 ? 3 : 2; // variation in brightness
 
             return (
@@ -101,7 +143,8 @@ export default function ContactSocials() {
                   duration,
                   repeat: Infinity,
                   delay,
-                  ease: 'easeInOut',
+                  type: 'tween',
+                  ease: 'linear',
                 }}
               />
             );
@@ -112,8 +155,8 @@ export default function ContactSocials() {
             const left = 85 + Math.random() * 14; // 85-99% (far right)
             const top = 20 + Math.random() * 25;  // 20-45% (horizon/buildings, not sky)
             const size = Math.random() * 2 + 0.5;
-            const duration = Math.random() * 6 + 4; // 4-10 seconds
-            const delay = Math.random() * 12;
+            const duration = Math.random() * 3 + 3; // 3-6 seconds
+            const delay = Math.random() * 3;
             const brightness = i % 2 === 0 ? 3 : 2; // variation in brightness
 
             return (
@@ -136,7 +179,8 @@ export default function ContactSocials() {
                   duration,
                   repeat: Infinity,
                   delay,
-                  ease: 'easeInOut',
+                  type: 'tween',
+                  ease: 'linear',
                 }}
               />
             );
@@ -147,8 +191,8 @@ export default function ContactSocials() {
             const left = 35 + Math.random() * 10; // 35-45% (city skyline area)
             const top = 15 + Math.random() * 20;  // 15-35% (city skyline area)
             const size = Math.random() * 2 + 0.5;
-            const duration = Math.random() * 6 + 4; // 4-10 seconds
-            const delay = Math.random() * 10;
+            const duration = Math.random() * 3 + 3; // 3-6 seconds
+            const delay = Math.random() * 3;
             const brightness = i % 2 === 0 ? 3 : 2; // variation in brightness
 
             return (
@@ -171,7 +215,8 @@ export default function ContactSocials() {
                   duration,
                   repeat: Infinity,
                   delay,
-                  ease: 'easeInOut',
+                  type: 'tween',
+                  ease: 'linear',
                 }}
               />
             );
@@ -321,7 +366,7 @@ export default function ContactSocials() {
 
         {/* Clickable Sign Hotspots */}
         {contactLinks.map((link) => (
-          <SignHotspot key={link.label} {...link} />
+          <SignHotspot key={link.label} {...link} isMobile={false} />
         ))}
       </div>
     </div>

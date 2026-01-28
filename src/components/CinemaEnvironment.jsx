@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 const navItems = [
   {
@@ -41,6 +42,14 @@ const navItems = [
   },
 ];
 
+// Mobile menu hotspots - positioned over the marquee image buttons
+const mobileMenuHotspots = [
+  { label: 'MOVIES', path: '/now-showing', top: '40%', height: '8%' },
+  { label: 'POSTERS', path: '/posters', top: '49%', height: '8%' },
+  { label: 'BIOGRAPHY', path: '/biography', top: '62%', height: '8%' },
+  { label: 'CONTACT', path: '/contact', top: '70%', height: '8%' },
+];
+
 function SignHotspot({ label, path, top, left, right, width, height, skewY }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -65,9 +74,39 @@ function SignHotspot({ label, path, top, left, right, width, height, skewY }) {
 }
 
 export default function CinemaEnvironment({ children }) {
+  const isMobile = useIsMobile();
+
   // Image aspect ratio: 5504 x 3072
   const aspectRatio = 5504 / 3072;
 
+  // Mobile layout - Theater Marquee Style with background image
+  if (isMobile) {
+    return (
+      <div className="min-h-screen relative overflow-hidden">
+        {/* Background marquee image - anchored to bottom so sides stay visible, top crops */}
+        <img
+          src="/assets/phonebg.jpg"
+          alt=""
+          className="absolute inset-x-0 bottom-0 w-full h-auto min-h-full object-cover object-bottom"
+        />
+
+        {/* Invisible hotspots over the marquee buttons */}
+        {mobileMenuHotspots.map((item) => (
+          <Link
+            key={item.label}
+            to={item.path}
+            className="absolute left-[10%] right-[10%] z-20 active:bg-white/10"
+            style={{
+              top: item.top,
+              height: item.height,
+            }}
+          />
+        ))}
+      </div>
+    );
+  }
+
+  // Desktop layout (unchanged)
   return (
     <div className="relative w-full h-full overflow-auto bg-[#0a0806] flex items-center justify-center">
       {/* Aspect ratio container - scales to fill viewport (may overflow) */}

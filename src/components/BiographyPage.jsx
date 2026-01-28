@@ -1,14 +1,213 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { useIsMobile } from '../hooks/useIsMobile';
 
 export default function BiographyPage() {
   const [showPanel, setShowPanel] = useState(false);
   const [activeTab, setActiveTab] = useState('bio');
+  const isMobile = useIsMobile();
 
   // Image aspect ratio
   const aspectRatio = 16 / 9;
 
+  // Mobile layout
+  if (isMobile) {
+    return (
+      <div className="h-screen bg-[#0a0908] relative overflow-hidden">
+        {/* Background Video */}
+        <video
+          src="/assets/mobile-biography-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        />
+
+        {/* Clickable area over person/desk - extends from top of head to button */}
+        <div
+          className="absolute cursor-pointer"
+          style={{
+            top: '5%',
+            left: '10%',
+            width: '80%',
+            height: '75%',
+          }}
+          onClick={() => setShowPanel(true)}
+        />
+
+        {/* Text overlays at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 flex flex-col items-center pb-12 gap-4">
+          {/* Click Desk to View */}
+          <motion.button
+            onClick={() => setShowPanel(true)}
+            className="font-serif tracking-[0.2em] uppercase text-lg"
+            style={{
+              color: '#c4a882',
+              textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Click to View Bio
+          </motion.button>
+
+          {/* Back to Site */}
+          <Link
+            to="/"
+            className="font-serif tracking-[0.2em] uppercase text-lg"
+            style={{
+              color: '#c4a882',
+              textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
+            }}
+          >
+            Back to Site
+          </Link>
+        </div>
+
+        {/* Bio Panel Modal */}
+        <AnimatePresence>
+          {showPanel && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowPanel(false)}
+            >
+              <motion.div
+                className="relative w-[90%] max-h-[85vh] overflow-y-auto rounded-lg"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  background: 'linear-gradient(145deg, rgba(42, 36, 32, 0.98) 0%, rgba(26, 22, 20, 0.98) 100%)',
+                  border: '2px solid #3d3530',
+                  padding: '24px',
+                }}
+              >
+                {/* Close button */}
+                <button
+                  className="absolute top-3 right-3 text-white/50 text-2xl"
+                  onClick={() => setShowPanel(false)}
+                >
+                  ×
+                </button>
+
+                {/* Headshot */}
+                <div className="flex justify-center mb-4">
+                  <img
+                    src="/assets/headshot.jpg"
+                    alt="Luke Wolsko"
+                    className="w-32 h-auto rounded"
+                    style={{ boxShadow: '0 0 20px rgba(0,0,0,0.5)' }}
+                  />
+                </div>
+
+                {/* Name */}
+                <h2
+                  className="text-xl font-serif tracking-wide text-center mb-4"
+                  style={{ color: '#c4a882' }}
+                >
+                  Luke Wolsko
+                </h2>
+
+                {/* Tabs */}
+                <div className="flex gap-4 justify-center mb-4 border-b border-white/10 pb-3">
+                  {['bio', 'resume'].map((tab) => (
+                    <button
+                      key={tab}
+                      className={`font-serif tracking-wider text-sm uppercase transition-colors ${
+                        activeTab === tab ? 'text-[#c4a882]' : 'text-white/40'
+                      }`}
+                      onClick={() => setActiveTab(tab)}
+                    >
+                      {tab}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Tab content */}
+                {activeTab === 'bio' && (
+                  <div
+                    className="text-sm leading-relaxed space-y-3"
+                    style={{ color: '#a0a0a0' }}
+                  >
+                    <p>
+                      Luke Wolsko is a filmmaker from Boulder, Colorado, recently graduated from NYU's Film & Television program, where he also studied the business of entertainment, media, and technology.
+                    </p>
+                    <p>
+                      He works across stop motion animation, live-action narrative, and experimental video, always with the aim of telling the truth, regardless of form. His projects often explore myth and memory through a highly visual, hands-on process.
+                    </p>
+                    <p>
+                      He has previously worked at Factory 25, Metalwork Pictures, Cygnet Gin, and JV8 Casting, and contributed animation to an upcoming documentary by Caveh Zahedi. He is currently training under director Andrew Levitas.
+                    </p>
+                  </div>
+                )}
+
+                {activeTab === 'resume' && (
+                  <div
+                    className="text-sm leading-relaxed space-y-4"
+                    style={{ color: '#a0a0a0' }}
+                  >
+                    <div>
+                      <h3 className="text-white/80 font-medium mb-1">Experience</h3>
+                      <ul className="space-y-0.5 text-xs">
+                        <li>Andrew Levitas — Trainee Director (Current)</li>
+                        <li>Cygnet Gin — Creative Producer</li>
+                        <li>Metalwork Pictures — Development Executive</li>
+                        <li>JV8 Casting — Intern</li>
+                        <li>Factory 25 — Intern</li>
+                        <li>Caveh Zahedi — Animator</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h3 className="text-white/80 font-medium mb-1">Education</h3>
+                      <p className="text-xs">NYU Film & Television, Minor in Business of Entertainment</p>
+                      <p className="text-xs mt-0.5">GPA: 3.95</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-white/80 font-medium mb-1">Skills</h3>
+                      <div className="space-y-1 text-xs">
+                        <p><span className="text-white/60">Editing + Post:</span> Premiere Pro, DaVinci Resolve, After Effects, Adobe Suite</p>
+                        <p><span className="text-white/60">AI + Generative:</span> Runway, Kling, Stable Diffusion, Midjourney, Elevenlabs, Veo3</p>
+                        <p><span className="text-white/60">Creative:</span> Storyboarding, Directing, Animation, Script breakdown</p>
+                        <p><span className="text-white/60">Coding:</span> CSS, HTML, JavaScript, Python</p>
+                      </div>
+                    </div>
+
+                    <div className="flex gap-4 pt-3 border-t border-white/10">
+                      <a
+                        href="https://www.imdb.com/name/nm15865993/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#c4a882] text-xs tracking-wider"
+                      >
+                        IMDB
+                      </a>
+                      <a
+                        href="https://www.linkedin.com/in/luke-wolsko/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#c4a882] text-xs tracking-wider"
+                      >
+                        LINKEDIN
+                      </a>
+                    </div>
+                  </div>
+                )}
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  }
+
+  // Desktop layout (unchanged)
   return (
     <div className="relative w-screen h-screen overflow-auto bg-[#0a0908] flex items-center justify-center">
       {/* Aspect ratio container - scales to fill viewport */}
@@ -22,11 +221,14 @@ export default function BiographyPage() {
           aspectRatio: '16 / 9',
         }}
       >
-        {/* Background Image */}
-        <img
-          src="/assets/biographybackground.jpg"
-          alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+        {/* Background Video */}
+        <video
+          src="/assets/biography-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
 
         {/* Clickable desk area */}
