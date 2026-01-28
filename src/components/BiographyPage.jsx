@@ -22,7 +22,7 @@ export default function BiographyPage() {
           loop
           muted
           playsInline
-          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+          className="absolute inset-0 w-full h-full object-contain pointer-events-none"
         />
 
         {/* Clickable area over person/desk - extends from top of head to button */}

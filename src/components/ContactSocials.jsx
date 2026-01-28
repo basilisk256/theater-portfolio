@@ -74,8 +74,7 @@ export default function ContactSocials() {
         <img
           src="/assets/contactpagebackground.jpg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ objectPosition: '10% center' }}
+          className="absolute inset-0 w-full h-full object-contain"
         />
 
         {/* Mobile hotspots */}

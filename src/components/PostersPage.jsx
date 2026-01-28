@@ -206,8 +206,7 @@ export default function PostersPage() {
         <img
           src={mobilePosters[mobilePosterIndex].mobile}
           alt={mobilePosters[mobilePosterIndex].title}
-          className="absolute inset-0 w-full h-full object-cover cursor-pointer"
-          style={{ objectPosition: 'center 40%' }}
+          className="absolute inset-0 w-full h-full object-contain cursor-pointer"
           onClick={() => setSelectedPoster(mobilePosters[mobilePosterIndex])}
         />
 

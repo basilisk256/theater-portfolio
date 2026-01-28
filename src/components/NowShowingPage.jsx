@@ -120,7 +120,7 @@ export default function NowShowingPage() {
           <img
             src="/assets/mobilemovies.jpg"
             alt="Movies"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
 
           {/* Clickable film regions */}

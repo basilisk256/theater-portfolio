@@ -44,10 +44,10 @@ const navItems = [
 
 // Mobile menu hotspots - positioned over the marquee image buttons
 const mobileMenuHotspots = [
-  { label: 'MOVIES', path: '/now-showing', top: '33%', height: '9%' },
-  { label: 'POSTERS', path: '/posters', top: '43%', height: '9%' },
-  { label: 'BIOGRAPHY', path: '/biography', top: '55%', height: '9%' },
-  { label: 'CONTACT', path: '/contact', top: '64%', height: '9%' },
+  { label: 'MOVIES', path: '/now-showing', top: '38%', height: '9%' },
+  { label: 'POSTERS', path: '/posters', top: '48%', height: '9%' },
+  { label: 'BIOGRAPHY', path: '/biography', top: '60%', height: '9%' },
+  { label: 'CONTACT', path: '/contact', top: '69%', height: '9%' },
 ];
 
 function SignHotspot({ label, path, top, left, right, width, height, skewY }) {
