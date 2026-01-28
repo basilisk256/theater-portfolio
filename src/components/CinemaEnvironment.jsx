@@ -44,10 +44,10 @@ const navItems = [
 
 // Mobile menu hotspots - positioned over the marquee image buttons
 const mobileMenuHotspots = [
-  { label: 'MOVIES', path: '/now-showing', top: '40%', height: '8%' },
-  { label: 'POSTERS', path: '/posters', top: '49%', height: '8%' },
-  { label: 'BIOGRAPHY', path: '/biography', top: '62%', height: '8%' },
-  { label: 'CONTACT', path: '/contact', top: '70%', height: '8%' },
+  { label: 'MOVIES', path: '/now-showing', top: '33%', height: '9%' },
+  { label: 'POSTERS', path: '/posters', top: '43%', height: '9%' },
+  { label: 'BIOGRAPHY', path: '/biography', top: '55%', height: '9%' },
+  { label: 'CONTACT', path: '/contact', top: '64%', height: '9%' },
 ];
 
 function SignHotspot({ label, path, top, left, right, width, height, skewY }) {
@@ -82,12 +82,12 @@ export default function CinemaEnvironment({ children }) {
   // Mobile layout - Theater Marquee Style with background image
   if (isMobile) {
     return (
-      <div className="min-h-screen relative overflow-hidden">
-        {/* Background marquee image - anchored to bottom so sides stay visible, top crops */}
+      <div className="h-screen w-screen relative overflow-hidden bg-black">
+        {/* Background marquee image */}
         <img
           src="/assets/phonebg.jpg"
           alt=""
-          className="absolute inset-x-0 bottom-0 w-full h-auto min-h-full object-cover object-bottom"
+          className="absolute inset-0 w-full h-full object-cover"
         />
 
         {/* Invisible hotspots over the marquee buttons */}
