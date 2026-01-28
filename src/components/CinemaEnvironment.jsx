@@ -83,11 +83,11 @@ export default function CinemaEnvironment({ children }) {
   if (isMobile) {
     return (
       <div className="h-screen w-screen relative overflow-hidden bg-black">
-        {/* Background marquee image */}
+        {/* Background marquee image - contains full image */}
         <img
           src="/assets/phonebg.jpg"
           alt=""
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-contain"
         />
 
         {/* Invisible hotspots over the marquee buttons */}
