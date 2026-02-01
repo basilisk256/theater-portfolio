@@ -38,7 +38,17 @@ export default function VideoPlayer({ film, onBack }) {
 
       {/* Video Container */}
       <div className="relative w-full max-w-[90%] aspect-video bg-black/90 rounded-sm overflow-hidden">
-        {youtubeEmbedUrl ? (
+        {film.onFestivalCircuit ? (
+          // Festival circuit message
+          <div className="w-full h-full flex flex-col items-center justify-center text-white/70 px-8">
+            <p className="font-typewriter text-sm tracking-wider text-center text-[#c4a882]">
+              CURRENTLY ON THE FESTIVAL CIRCUIT
+            </p>
+            <p className="mt-4 text-xs text-center opacity-60 max-w-md leading-relaxed">
+              This film is currently screening at film festivals and will be available to watch online once the festival run is complete.
+            </p>
+          </div>
+        ) : youtubeEmbedUrl ? (
           <iframe
             src={`${youtubeEmbedUrl}?autoplay=1&rel=0&modestbranding=1&controls=1`}
             className="w-full h-full"

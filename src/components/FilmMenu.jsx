@@ -10,7 +10,7 @@ const films = [
     thumbnail: '/assets/thumbnails/jealousbf.png',
     titleImage: '/assets/titles/jealousbf.png',
     titleScale: 1.2,
-    videoUrl: 'https://youtu.be/aKyOTh-tpYk'
+    onFestivalCircuit: true,
   },
   {
     id: 2,

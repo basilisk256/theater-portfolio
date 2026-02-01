@@ -10,7 +10,7 @@ const films = [
     year: '2025',
     role: 'Director',
     thumbnail: '/assets/thumbnails/jealousbf.png',
-    videoUrl: 'https://youtu.be/aKyOTh-tpYk',
+    onFestivalCircuit: true,
   },
   {
     id: 2,
@@ -101,6 +101,7 @@ function FilmCard({ film, index }) {
 
 export default function NowShowingPage() {
   const isMobile = useIsMobile();
+  const [showFestivalModal, setShowFestivalModal] = useState(false);
 
   // Click regions for each film (percentages of image dimensions)
   const clickRegions = [
@@ -110,6 +111,14 @@ export default function NowShowingPage() {
     { film: films[3], top: 61, height: 15 },    // Batch 9e
     { film: films[4], top: 76, height: 15 },    // 1690 Photographs
   ];
+
+  const handleFilmClick = (film) => {
+    if (film.onFestivalCircuit) {
+      setShowFestivalModal(true);
+    } else if (film.videoUrl) {
+      window.open(film.videoUrl, '_blank');
+    }
+  };
 
   // Mobile layout
   if (isMobile) {
@@ -125,11 +134,9 @@ export default function NowShowingPage() {
 
           {/* Clickable film regions */}
           {clickRegions.map(({ film, top, height }) => (
-            <a
+            <button
               key={film.id}
-              href={film.videoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              onClick={() => handleFilmClick(film)}
               className="absolute left-0 right-0 cursor-pointer hover:bg-white/10 transition-colors"
               style={{
                 top: `${top}%`,
@@ -146,6 +153,43 @@ export default function NowShowingPage() {
             aria-label="Back to site"
           />
         </div>
+
+        {/* Festival Circuit Modal */}
+        <AnimatePresence>
+          {showFestivalModal && (
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowFestivalModal(false)}
+            >
+              <motion.div
+                className="bg-[#1a1a1a] rounded-lg p-8 max-w-sm text-center"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                                <h3
+                  className="text-lg font-serif tracking-wider mb-4"
+                  style={{ color: '#c4a882' }}
+                >
+                  Currently on the Festival Circuit
+                </h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-6">
+                  This film is currently screening at film festivals and will be available to watch online once the festival run is complete.
+                </p>
+                <button
+                  onClick={() => setShowFestivalModal(false)}
+                  className="font-serif tracking-wider text-sm px-6 py-2 border border-[#c4a882]/50 text-[#c4a882] hover:bg-[#c4a882]/10 transition-colors rounded"
+                >
+                  Close
+                </button>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     );
   }

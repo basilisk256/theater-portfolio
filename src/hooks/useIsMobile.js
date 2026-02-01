@@ -1,12 +1,24 @@
 import { useState, useEffect } from 'react';
 
+// Check for ?mobile=true URL parameter
+function getForceMobile() {
+  if (typeof window === 'undefined') return false;
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get('mobile') === 'true';
+}
+
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(() => {
     if (typeof window === 'undefined') return false;
+    if (getForceMobile()) return true;
     return window.matchMedia('(max-width: 767px)').matches;
   });
 
   useEffect(() => {
+    if (getForceMobile()) {
+      setIsMobile(true);
+      return;
+    }
     const mediaQuery = window.matchMedia('(max-width: 767px)');
 
     const handleChange = (e) => {
