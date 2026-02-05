@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function VideoCard({ video, index }) {
+  const [isPlaying, setIsPlaying] = useState(false);
   const thumbnailUrl = `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`;
-  const youtubeUrl = `https://youtu.be/${video.youtubeId}`;
+  const embedUrl = `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`;
 
   return (
     <motion.div
@@ -12,40 +14,51 @@ function VideoCard({ video, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
     >
-      <a
-        href={youtubeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="aspect-video rounded overflow-hidden bg-black relative block"
+      <div
+        className="aspect-video rounded overflow-hidden bg-black relative"
         style={{
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
         }}
       >
-        <img
-          src={thumbnailUrl}
-          alt={video.title}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/20 transition-colors">
-          <div
-            className="w-20 h-20 rounded-full flex items-center justify-center"
-            style={{
-              background: 'rgba(255, 255, 255, 0.1)',
-              backdropFilter: 'blur(4px)',
-              border: '2px solid rgba(255, 255, 255, 0.3)',
-            }}
+        {isPlaying ? (
+          <iframe
+            src={embedUrl}
+            className="w-full h-full"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <button
+            onClick={() => setIsPlaying(true)}
+            className="w-full h-full relative cursor-pointer"
           >
-            <svg
-              className="w-8 h-8 ml-1"
-              fill="white"
-              viewBox="0 0 24 24"
-            >
-              <path d="M8 5v14l11-7z" />
-            </svg>
-          </div>
-        </div>
-      </a>
+            <img
+              src={thumbnailUrl}
+              alt={video.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/20 transition-colors">
+              <div
+                className="w-20 h-20 rounded-full flex items-center justify-center"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  backdropFilter: 'blur(4px)',
+                  border: '2px solid rgba(255, 255, 255, 0.3)',
+                }}
+              >
+                <svg
+                  className="w-8 h-8 ml-1"
+                  fill="white"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          </button>
+        )}
+      </div>
       {video.title && (
         <h3
           className="mt-5 text-center text-base md:text-lg tracking-[0.2em]"
@@ -115,7 +128,7 @@ export default function AIVideoPage() {
 
         <div className="w-full grid grid-cols-1 gap-8 mb-12">
           {videos.map((video, index) => (
-            <VideoCard key={video.src} video={video} index={index} />
+            <VideoCard key={video.youtubeId} video={video} index={index} />
           ))}
         </div>
 
@@ -165,7 +178,7 @@ export default function AIVideoPage() {
 
         <div className="w-full max-w-7xl grid grid-cols-2 gap-10 mb-16 px-2">
           {videos.map((video, index) => (
-            <VideoCard key={video.src} video={video} index={index} />
+            <VideoCard key={video.youtubeId} video={video} index={index} />
           ))}
         </div>
 
