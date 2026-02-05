@@ -85,6 +85,7 @@ const videos = [
   { youtubeId: 'JSLVwRgoNSY', title: 'PHOTOSHOP' },
   { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
   { youtubeId: 'i_c8JtvB85o', title: 'VOSS' },
+  { youtubeId: 'SOvNKNnSmXg', title: 'ONYX COFFEE' },
 ];
 
 export default function AIVideoPage() {
