@@ -90,7 +90,7 @@ const videos = [
 
 export default function AIVideoPage() {
   return (
-    <div className="fixed inset-0 bg-[#0a0806] overflow-y-auto">
+    <div className="min-h-screen bg-[#0a0806] md:fixed md:inset-0 md:overflow-y-auto">
       {/* Mobile Layout */}
       <div className="md:hidden flex flex-col items-center pb-16 px-4" style={{ paddingTop: '60px' }}>
         <motion.div
