@@ -8,6 +8,7 @@ import BiographyPage from './components/BiographyPage.jsx'
 import PostersPage from './components/PostersPage.jsx'
 import CommercialPage from './components/CommercialPage.jsx'
 import NowShowingPage from './components/NowShowingPage.jsx'
+import AIVideoPage from './components/AIVideoPage.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')).render(
         <Route path="/posters" element={<PostersPage />} />
         <Route path="/commercial" element={<CommercialPage />} />
         <Route path="/now-showing" element={<NowShowingPage />} />
+        <Route path="/aivideo" element={<AIVideoPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
