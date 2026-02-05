@@ -1,25 +1,9 @@
-import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 function VideoCard({ video, index }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const videoRef = useRef(null);
-
-  const handlePlay = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setIsPlaying(true);
-    }
-  };
-
-  const handleEnded = () => {
-    setIsPlaying(false);
-  };
-
-  const handlePause = () => {
-    setIsPlaying(false);
-  };
+  const thumbnailUrl = `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`;
+  const youtubeUrl = `https://youtu.be/${video.youtubeId}`;
 
   return (
     <motion.div
@@ -28,47 +12,40 @@ function VideoCard({ video, index }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
     >
-      <div
-        className="aspect-video rounded overflow-hidden bg-black relative"
+      <a
+        href={youtubeUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="aspect-video rounded overflow-hidden bg-black relative block"
         style={{
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
         }}
       >
-        <video
-          ref={videoRef}
-          src={video.src}
-          poster={video.poster}
-          className="w-full h-full object-contain"
-          controls={isPlaying}
-          preload="metadata"
-          onEnded={handleEnded}
-          onPause={handlePause}
+        <img
+          src={thumbnailUrl}
+          alt={video.title}
+          className="w-full h-full object-cover"
         />
-        {!isPlaying && (
-          <button
-            onClick={handlePlay}
-            className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/20 transition-colors cursor-pointer"
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/20 transition-colors">
+          <div
+            className="w-20 h-20 rounded-full flex items-center justify-center"
+            style={{
+              background: 'rgba(255, 255, 255, 0.1)',
+              backdropFilter: 'blur(4px)',
+              border: '2px solid rgba(255, 255, 255, 0.3)',
+            }}
           >
-            <div
-              className="w-20 h-20 rounded-full flex items-center justify-center"
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(4px)',
-                border: '2px solid rgba(255, 255, 255, 0.3)',
-              }}
+            <svg
+              className="w-8 h-8 ml-1"
+              fill="white"
+              viewBox="0 0 24 24"
             >
-              <svg
-                className="w-8 h-8 ml-1"
-                fill="white"
-                viewBox="0 0 24 24"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
-          </button>
-        )}
-      </div>
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      </a>
       {video.title && (
         <h3
           className="mt-5 text-center text-base md:text-lg tracking-[0.2em]"
@@ -85,18 +62,16 @@ function VideoCard({ video, index }) {
 }
 
 const videos = [
-  { src: '/assets/videos/neurogum.mp4', title: 'NEURO' },
-  { src: '/assets/videos/nova_vodka_ad.mp4', title: 'NOVA VODKA' },
-  { src: '/assets/videos/Cygnet_bartender.mp4', title: 'CYGNET GIN' },
-  { src: '/assets/videos/midjourneyspec.mp4', title: 'MIDJOURNEY' },
-  { src: '/assets/videos/factmachine_final.mp4', title: 'FACT MACHINE' },
-  { src: '/assets/videos/Factmachine_aliens.mp4', title: 'FACT MACHINE - ALIENS' },
-  { src: '/assets/videos/factmachine2.mp4', title: 'FACT MACHINE 2' },
-  { src: '/assets/videos/photoshop_remove.mp4', title: 'PHOTOSHOP' },
-  { src: '/assets/videos/sidebysiderecreation_gbu.mp4', title: 'GBU RECREATION' },
-  { src: '/assets/videos/octra.mp4', title: 'OCTRA', poster: '/assets/videos/octra_thumb.jpg' },
-  { src: '/assets/videos/voss_spec.mp4', title: 'VOSS' },
-  { src: '/assets/videos/onyxcoffee.mp4', title: 'ONYX COFFEE' },
+  { youtubeId: '8pSX52Irk1U', title: 'NEURO' },
+  { youtubeId: 'BKw0ox-HpP0', title: 'NOVA VODKA' },
+  { youtubeId: '59cpVc6vhtQ', title: 'CYGNET GIN' },
+  { youtubeId: 'TouTcXdS_5g', title: 'MIDJOURNEY' },
+  { youtubeId: 'adOs2-quMUc', title: 'FACT MACHINE - CONFESSIONS' },
+  { youtubeId: 'mRIGg3EKw2c', title: 'FACT MACHINE - ALIENS' },
+  { youtubeId: 'u_OmktU01lI', title: 'FACT MACHINE - ROBBERS' },
+  { youtubeId: 'JSLVwRgoNSY', title: 'PHOTOSHOP' },
+  { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
+  { youtubeId: 'i_c8JtvB85o', title: 'VOSS' },
 ];
 
 export default function AIVideoPage() {
