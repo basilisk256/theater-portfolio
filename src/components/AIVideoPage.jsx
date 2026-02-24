@@ -4,8 +4,13 @@ import { motion } from 'framer-motion';
 
 function VideoCard({ video, index }) {
   const [isPlaying, setIsPlaying] = useState(false);
-  const thumbnailUrl = `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`;
-  const embedUrl = `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`;
+  const isLocal = video.localSrc;
+  const thumbnailUrl = video.customThumb
+    ? video.customThumb
+    : isLocal
+      ? null
+      : `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`;
+  const embedUrl = isLocal ? null : `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`;
 
   return (
     <motion.div
@@ -21,7 +26,14 @@ function VideoCard({ video, index }) {
           border: '1px solid rgba(255, 255, 255, 0.15)',
         }}
       >
-        {isPlaying ? (
+        {isLocal ? (
+          <video
+            src={video.localSrc}
+            className="w-full h-full object-cover"
+            controls
+            playsInline
+          />
+        ) : isPlaying ? (
           <iframe
             src={embedUrl}
             className="w-full h-full"
@@ -75,17 +87,19 @@ function VideoCard({ video, index }) {
 }
 
 const videos = [
+  { youtubeId: '59cpVc6vhtQ', title: 'CYGNET GIN' },
   { youtubeId: '8pSX52Irk1U', title: 'NEURO' },
   { youtubeId: 'BKw0ox-HpP0', title: 'NOVA VODKA' },
-  { youtubeId: '59cpVc6vhtQ', title: 'CYGNET GIN' },
+  { youtubeId: '7q08EuFDdwE', title: 'GROK ANNIE', customThumb: '/grok-annie-thumb.png' },
   { youtubeId: 'TouTcXdS_5g', title: 'MIDJOURNEY' },
+  { youtubeId: '7mlFitv-n9w', title: 'HEARO (IN PROGRESS)' },
   { youtubeId: 'adOs2-quMUc', title: 'FACT MACHINE - CONFESSIONS' },
   { youtubeId: 'mRIGg3EKw2c', title: 'FACT MACHINE - ALIENS' },
   { youtubeId: 'u_OmktU01lI', title: 'FACT MACHINE - ROBBERS' },
-  { youtubeId: 'JSLVwRgoNSY', title: 'PHOTOSHOP' },
-  { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
   { youtubeId: 'i_c8JtvB85o', title: 'VOSS' },
   { youtubeId: 'SOvNKNnSmXg', title: 'ONYX COFFEE' },
+  { youtubeId: 'JSLVwRgoNSY', title: 'PHOTOSHOP' },
+  { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
 ];
 
 export default function AIVideoPage() {

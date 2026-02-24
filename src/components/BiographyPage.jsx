@@ -6,6 +6,7 @@ import { useIsMobile } from '../hooks/useIsMobile';
 export default function BiographyPage() {
   const [showPanel, setShowPanel] = useState(false);
   const [activeTab, setActiveTab] = useState('bio');
+  const [isBookshelfHovered, setIsBookshelfHovered] = useState(false);
   const isMobile = useIsMobile();
 
   // Image aspect ratio
@@ -243,6 +244,11 @@ export default function BiographyPage() {
           onClick={() => setShowPanel(true)}
         />
 
+        {/* TODO: Secret bookshelf hotspot (hidden for now)
+            Saved clip-path: polygon(20% 28%, 82% 28%, 82% 49%, 68% 49%, 41% 68%, 41% 100%, 20% 100%)
+            Bounding box: top 50%, left 10%, width 26%, height 45%
+            Glow style: rgb(0, 120, 255), blur(20px) brightness(1.5) saturate(1.5), mixBlendMode: screen */}
+
         {/* Gold sign on desk */}
         <motion.div
           className="absolute z-20 pointer-events-none text-2xl md:text-3xl tracking-[0.3em] uppercase font-serif"
@@ -260,28 +266,29 @@ export default function BiographyPage() {
           Click Desk to View
         </motion.div>
 
-        {/* Back button - bottom right, in line with Click Desk to View */}
-        <Link to="/">
-          <motion.div
-            className="absolute z-30 cursor-pointer font-serif tracking-[0.3em] uppercase text-2xl md:text-3xl"
-            style={{
-              top: '82%',
-              right: '2%',
-              color: '#c4a882',
-              textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
-            }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: showPanel ? 0 : 1 }}
-            transition={{ delay: 0.5 }}
-            whileHover={{
-              scale: 1.05,
-              textShadow: '0 0 30px rgba(196, 168, 130, 0.8), 0 2px 4px rgba(0,0,0,0.8)',
-            }}
-          >
-            Back to Theater
-          </motion.div>
-        </Link>
       </div>
+
+      {/* Back button - fixed to viewport bottom-right */}
+      <Link to="/">
+        <motion.div
+          className="fixed z-30 cursor-pointer font-serif tracking-[0.2em] uppercase text-lg flex items-center gap-2"
+          style={{
+            bottom: '40px',
+            right: '40px',
+            color: '#c4a882',
+            textShadow: '0 0 6px rgba(196, 168, 130, 0.4), 0 0 12px rgba(196, 168, 130, 0.2), 0 0 8px rgba(0,0,0,1), 0 0 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9), 0 0 50px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,1)',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showPanel ? 0 : 1 }}
+          transition={{ delay: 0.5 }}
+          whileHover={{
+            scale: 1.05,
+            textShadow: '0 0 10px rgba(196, 168, 130, 0.6), 0 0 20px rgba(196, 168, 130, 0.4), 0 0 8px rgba(0,0,0,1), 0 0 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9), 0 2px 4px rgba(0,0,0,1)',
+          }}
+        >
+          Back to Theater →
+        </motion.div>
+      </Link>
 
       {/* Bio Panel */}
       <AnimatePresence>

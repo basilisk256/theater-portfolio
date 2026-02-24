@@ -329,30 +329,13 @@ export default function PostersPage() {
           />
         ))}
 
-        {/* Left arrow - back to theater on page 1, previous page otherwise */}
-        {currentPage === 0 ? (
-          <Link to="/">
-            <motion.div
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-30 cursor-pointer"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              whileHover={{ scale: 1.1, x: -5 }}
-            >
-              <div
-                className="text-8xl font-serif"
-                style={{
-                  color: '#c4a882',
-                  textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
-                }}
-              >
-                ‹
-              </div>
-            </motion.div>
-          </Link>
-        ) : (
+      </div>
+
+      {/* Left arrow - fixed to viewport */}
+      {currentPage === 0 ? (
+        <Link to="/">
           <motion.div
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 cursor-pointer"
-            onClick={goToPrevPage}
+            className="fixed left-6 top-1/2 -translate-y-1/2 z-30 cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             whileHover={{ scale: 1.1, x: -5 }}
@@ -367,49 +350,69 @@ export default function PostersPage() {
               ‹
             </div>
           </motion.div>
-        )}
-
-        {/* Right arrow - next page */}
-        {currentPage < totalPages - 1 && (
-          <motion.div
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 cursor-pointer"
-            onClick={goToNextPage}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            whileHover={{ scale: 1.1, x: 5 }}
-          >
-            <div
-              className="text-8xl font-serif"
-              style={{
-                color: '#c4a882',
-                textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
-              }}
-            >
-              ›
-            </div>
-          </motion.div>
-        )}
-
-        {/* Back button - bottom center */}
-        <Link to="/" className="absolute bottom-[12%] left-0 right-0 flex justify-center z-30">
-          <motion.div
-            className="cursor-pointer font-serif tracking-[0.3em] uppercase text-2xl md:text-3xl"
+        </Link>
+      ) : (
+        <motion.div
+          className="fixed left-6 top-1/2 -translate-y-1/2 z-30 cursor-pointer"
+          onClick={goToPrevPage}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          whileHover={{ scale: 1.1, x: -5 }}
+        >
+          <div
+            className="text-8xl font-serif"
             style={{
               color: '#c4a882',
               textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
             }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-            whileHover={{
-              scale: 1.05,
-              textShadow: '0 0 30px rgba(196, 168, 130, 0.8), 0 2px 4px rgba(0,0,0,0.8)',
+          >
+            ‹
+          </div>
+        </motion.div>
+      )}
+
+      {/* Right arrow - fixed to viewport */}
+      {currentPage < totalPages - 1 && (
+        <motion.div
+          className="fixed right-6 top-1/2 -translate-y-1/2 z-30 cursor-pointer"
+          onClick={goToNextPage}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          whileHover={{ scale: 1.1, x: 5 }}
+        >
+          <div
+            className="text-8xl font-serif"
+            style={{
+              color: '#c4a882',
+              textShadow: '0 0 20px rgba(196, 168, 130, 0.5), 0 2px 4px rgba(0,0,0,0.8)',
             }}
           >
-            Back to Theater
-          </motion.div>
-        </Link>
-      </div>
+            ›
+          </div>
+        </motion.div>
+      )}
+
+      {/* Back button - fixed to viewport bottom-right */}
+      <Link to="/">
+        <motion.div
+          className="fixed z-30 cursor-pointer font-serif tracking-[0.2em] uppercase text-lg flex items-center gap-2"
+          style={{
+            bottom: '40px',
+            right: '40px',
+            color: '#c4a882',
+            textShadow: '0 0 6px rgba(196, 168, 130, 0.4), 0 0 12px rgba(196, 168, 130, 0.2), 0 0 8px rgba(0,0,0,1), 0 0 16px rgba(0,0,0,1), 0 0 30px rgba(0,0,0,0.9), 0 0 50px rgba(0,0,0,0.8), 0 0 80px rgba(0,0,0,0.6), 0 2px 4px rgba(0,0,0,1)',
+          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          whileHover={{
+            scale: 1.05,
+            textShadow: '0 0 30px rgba(196, 168, 130, 0.8), 0 2px 4px rgba(0,0,0,0.8)',
+          }}
+        >
+          Back to Theater →
+        </motion.div>
+      </Link>
 
       {/* Expanded poster modal */}
       <AnimatePresence>
