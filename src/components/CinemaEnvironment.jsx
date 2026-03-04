@@ -23,13 +23,12 @@ const navItems = [
   },
   {
     label: 'COMMERCIAL',
-    path: '/commercial',
+    path: '/aivideo',
     top: '73%',
     left: '15%',
     width: '10%',
     height: '4%',
     skewY: -2,
-    hidden: true, // Hidden for now - position preserved for future use
   },
   {
     label: 'CONTACT',
