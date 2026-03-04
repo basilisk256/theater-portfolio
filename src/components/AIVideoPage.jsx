@@ -87,6 +87,7 @@ function VideoCard({ video, index }) {
 }
 
 const videos = [
+  { youtubeId: 'RCbfqQNils8', title: 'LIQUID DEATH' },
   { youtubeId: '59cpVc6vhtQ', title: 'CYGNET GIN' },
   { youtubeId: '8pSX52Irk1U', title: 'NEURO' },
   { youtubeId: 'BKw0ox-HpP0', title: 'NOVA VODKA' },
@@ -147,12 +148,6 @@ export default function AIVideoPage() {
           ))}
         </div>
 
-        <Link
-          to="/"
-          className="tracking-[0.2em] text-sm px-8 py-3 border border-[#c4a882]/40 text-[#c4a882] hover:bg-[#c4a882]/10 transition-all rounded"
-        >
-          BACK TO THEATER
-        </Link>
       </div>
 
       {/* Desktop Layout */}
@@ -197,20 +192,16 @@ export default function AIVideoPage() {
           ))}
         </div>
 
-        <motion.div
-          className="pb-8"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-        >
-          <Link
-            to="/"
-            className="tracking-[0.2em] text-sm px-8 py-3 border border-[#c4a882]/40 text-[#c4a882] hover:bg-[#c4a882]/10 hover:border-[#c4a882]/60 transition-all rounded"
-          >
-            BACK TO THEATER
-          </Link>
-        </motion.div>
       </div>
+
+      {/* Fixed "Back to Site" button */}
+      <Link
+        to="/"
+        className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 tracking-[0.2em] text-sm px-8 py-3 border border-[#c4a882]/40 text-[#c4a882] hover:bg-[#c4a882]/10 hover:border-[#c4a882]/60 transition-all rounded"
+        style={{ backgroundColor: 'rgba(10, 8, 6, 0.8)', backdropFilter: 'blur(8px)' }}
+      >
+        BACK TO SITE
+      </Link>
     </div>
   );
 }
