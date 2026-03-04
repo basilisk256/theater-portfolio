@@ -1,4 +1,12 @@
 {
+  "headers": [
+    {
+      "source": "/LukeWolsko_Resume.pdf",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ],
   "rewrites": [
     { "source": "/(.*)", "destination": "/" }
   ]
