@@ -86,13 +86,14 @@ function VideoCard({ video, index }) {
   );
 }
 
-const videos = [
+const commercialVideos = [
   { youtubeId: 'RCbfqQNils8', title: 'LIQUID DEATH' },
   { youtubeId: '59cpVc6vhtQ', title: 'CYGNET GIN' },
   { youtubeId: '8pSX52Irk1U', title: 'NEURO' },
   { youtubeId: 'BKw0ox-HpP0', title: 'NOVA VODKA' },
   { youtubeId: '7q08EuFDdwE', title: 'GROK ANNIE', customThumb: '/grok-annie-thumb.png' },
   { youtubeId: 'TouTcXdS_5g', title: 'MIDJOURNEY' },
+  { youtubeId: 'SBTTkawe4ho', title: 'OCTRA 2' },
   { youtubeId: '7mlFitv-n9w', title: 'HEARO (IN PROGRESS)' },
   { youtubeId: 'adOs2-quMUc', title: 'FACT MACHINE - CONFESSIONS' },
   { youtubeId: 'mRIGg3EKw2c', title: 'FACT MACHINE - ALIENS' },
@@ -103,7 +104,46 @@ const videos = [
   { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
 ];
 
+const experimentalVideos = [
+  { youtubeId: '8iyfNhPHdvg', title: 'SHAPESTORE' },
+];
+
+function TabBar({ activeTab, setActiveTab, isMobile }) {
+  const tabs = ['COMMERCIAL', 'EXPERIMENTAL'];
+  return (
+    <div className="flex justify-center gap-1" style={{ marginTop: isMobile ? '16px' : '24px' }}>
+      {tabs.map((tab) => (
+        <button
+          key={tab}
+          onClick={() => setActiveTab(tab)}
+          className="relative px-6 py-2 tracking-[0.25em] transition-all cursor-pointer"
+          style={{
+            fontFamily: "'Bebas Neue', sans-serif",
+            fontSize: isMobile ? '0.85rem' : '1.05rem',
+            color: activeTab === tab ? '#c4a882' : 'rgba(196, 168, 130, 0.35)',
+            background: 'none',
+            border: 'none',
+          }}
+        >
+          {tab}
+          {activeTab === tab && (
+            <motion.div
+              layoutId="tab-underline"
+              className="absolute bottom-0 left-[15%] right-[15%] h-px"
+              style={{ background: 'linear-gradient(90deg, transparent, #c4a882, transparent)' }}
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            />
+          )}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 export default function AIVideoPage() {
+  const [activeTab, setActiveTab] = useState('COMMERCIAL');
+  const currentVideos = activeTab === 'COMMERCIAL' ? commercialVideos : experimentalVideos;
+
   return (
     <div className="min-h-screen bg-[#0a0806] md:fixed md:inset-0 md:overflow-y-auto">
       {/* Mobile Layout */}
@@ -138,15 +178,22 @@ export default function AIVideoPage() {
             className="text-xs mt-3 tracking-[0.3em] uppercase"
             style={{ color: 'rgba(196, 168, 130, 0.5)' }}
           >
-            Spec AI Ads
+            AI Video
           </p>
+          <TabBar activeTab={activeTab} setActiveTab={setActiveTab} isMobile={true} />
         </motion.div>
 
-        <div className="w-full grid grid-cols-1 gap-8 mb-12">
-          {videos.map((video, index) => (
-            <VideoCard key={video.youtubeId} video={video} index={index} />
+        <motion.div
+          key={activeTab}
+          className="w-full grid grid-cols-1 gap-8 mb-12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {currentVideos.map((video, index) => (
+            <VideoCard key={video.youtubeId || video.localSrc} video={video} index={index} />
           ))}
-        </div>
+        </motion.div>
 
       </div>
 
@@ -182,15 +229,24 @@ export default function AIVideoPage() {
             className="text-base mt-4 tracking-[0.3em] uppercase"
             style={{ color: 'rgba(196, 168, 130, 0.5)' }}
           >
-            Spec AI Ads
+            AI Video
           </p>
+          <TabBar activeTab={activeTab} setActiveTab={setActiveTab} isMobile={false} />
         </motion.div>
 
-        <div className="w-full max-w-7xl grid grid-cols-2 gap-10 mb-16 px-2">
-          {videos.map((video, index) => (
-            <VideoCard key={video.youtubeId} video={video} index={index} />
+        <motion.div
+          key={activeTab}
+          className={`w-full max-w-7xl mb-16 px-2 grid gap-10 ${
+            currentVideos.length === 1 ? 'grid-cols-1 max-w-3xl' : 'grid-cols-2'
+          }`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          {currentVideos.map((video, index) => (
+            <VideoCard key={video.youtubeId || video.localSrc} video={video} index={index} />
           ))}
-        </div>
+        </motion.div>
 
       </div>
 
