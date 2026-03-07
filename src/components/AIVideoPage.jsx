@@ -87,11 +87,12 @@ function VideoCard({ video, index }) {
 }
 
 const commercialVideos = [
+  { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
+  { youtubeId: '7q08EuFDdwE', title: 'GROK ANNIE', customThumb: '/grok-annie-thumb.png' },
   { youtubeId: 'RCbfqQNils8', title: 'LIQUID DEATH' },
   { youtubeId: '59cpVc6vhtQ', title: 'CYGNET GIN' },
   { youtubeId: '8pSX52Irk1U', title: 'NEURO' },
   { youtubeId: 'BKw0ox-HpP0', title: 'NOVA VODKA' },
-  { youtubeId: '7q08EuFDdwE', title: 'GROK ANNIE', customThumb: '/grok-annie-thumb.png' },
   { youtubeId: 'TouTcXdS_5g', title: 'MIDJOURNEY' },
   { youtubeId: 'SBTTkawe4ho', title: 'OCTRA 2' },
   { youtubeId: '7mlFitv-n9w', title: 'HEARO (IN PROGRESS)' },
@@ -101,17 +102,16 @@ const commercialVideos = [
   { youtubeId: 'i_c8JtvB85o', title: 'VOSS' },
   { youtubeId: 'SOvNKNnSmXg', title: 'ONYX COFFEE' },
   { youtubeId: 'JSLVwRgoNSY', title: 'PHOTOSHOP' },
-  { youtubeId: 'Gs05J424Hck', title: 'OCTRA' },
 ];
 
 const experimentalVideos = [
-  { youtubeId: '8iyfNhPHdvg', title: 'SHAPESTORE' },
+  { youtubeId: '8iyfNhPHdvg', title: 'SHAPE STORE' },
 ];
 
 function TabBar({ activeTab, setActiveTab, isMobile }) {
   const tabs = ['COMMERCIAL', 'EXPERIMENTAL'];
   return (
-    <div className="flex justify-center gap-1" style={{ marginTop: isMobile ? '16px' : '24px' }}>
+    <div className="flex justify-center gap-8" style={{ marginTop: isMobile ? '16px' : '24px' }}>
       {tabs.map((tab) => (
         <button
           key={tab}
@@ -166,14 +166,6 @@ export default function AIVideoPage() {
           >
             LUKE WOLSKO
           </h1>
-          <div
-            className="mt-3 mx-auto"
-            style={{
-              width: '40px',
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, #c4a882, transparent)',
-            }}
-          />
           <p
             className="text-xs mt-3 tracking-[0.3em] uppercase"
             style={{ color: 'rgba(196, 168, 130, 0.5)' }}
@@ -217,14 +209,6 @@ export default function AIVideoPage() {
           >
             LUKE WOLSKO
           </h1>
-          <div
-            className="mt-4 mx-auto"
-            style={{
-              width: '60px',
-              height: '1px',
-              background: 'linear-gradient(90deg, transparent, #c4a882, transparent)',
-            }}
-          />
           <p
             className="text-base mt-4 tracking-[0.3em] uppercase"
             style={{ color: 'rgba(196, 168, 130, 0.5)' }}
