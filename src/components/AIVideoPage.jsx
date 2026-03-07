@@ -3,81 +3,35 @@ import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 function VideoCard({ video, index, onOpen }) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const isLocal = video.localSrc;
   const thumbnailUrl = video.customThumb
     ? video.customThumb
-    : isLocal
+    : video.localSrc
       ? null
       : `https://img.youtube.com/vi/${video.youtubeId}/maxresdefault.jpg`;
-  const embedUrl = isLocal ? null : `https://www.youtube.com/embed/${video.youtubeId}?autoplay=1`;
-
-  const handleClick = () => {
-    if (video.about) {
-      onOpen(video);
-    } else {
-      setIsPlaying(true);
-    }
-  };
 
   return (
     <motion.div
-      className="flex flex-col"
+      className="flex flex-col cursor-pointer"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
+      onClick={() => onOpen(video)}
     >
       <div
-        className="aspect-video rounded overflow-hidden bg-black relative"
+        className="aspect-video rounded overflow-hidden bg-black relative group"
         style={{
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.6)',
           border: '1px solid rgba(255, 255, 255, 0.15)',
         }}
       >
-        {isLocal ? (
-          <video
-            src={video.localSrc}
+        {thumbnailUrl && (
+          <img
+            src={thumbnailUrl}
+            alt={video.title}
             className="w-full h-full object-cover"
-            controls
-            playsInline
           />
-        ) : isPlaying ? (
-          <iframe
-            src={embedUrl}
-            className="w-full h-full"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        ) : (
-          <button
-            onClick={handleClick}
-            className="w-full h-full relative cursor-pointer"
-          >
-            <img
-              src={thumbnailUrl}
-              alt={video.title}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/40 hover:bg-black/20 transition-colors">
-              <div
-                className="w-20 h-20 rounded-full flex items-center justify-center"
-                style={{
-                  background: 'rgba(255, 255, 255, 0.1)',
-                  backdropFilter: 'blur(4px)',
-                  border: '2px solid rgba(255, 255, 255, 0.3)',
-                }}
-              >
-                <svg
-                  className="w-8 h-8 ml-1"
-                  fill="white"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
-          </button>
         )}
+        <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
       </div>
       {video.title && (
         <h3
