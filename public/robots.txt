@@ -1,2 +1,1 @@
 User-agent: *
-Disallow: /lukewolsko_google_resume.pdf
