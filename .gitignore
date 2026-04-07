@@ -48,3 +48,6 @@ Gemini_Generated_Image_*
 # --- Specific Backups & Originals ---
 public/assets/_originals/
 public/_originals/
+
+# --- Large Video Files (host externally) ---
+public/assets/shapestore.mp4
