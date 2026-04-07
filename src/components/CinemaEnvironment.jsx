@@ -23,7 +23,7 @@ const navItems = [
   },
   {
     label: 'COMMERCIAL',
-    path: '/aivideo',
+    path: '/experiments',
     top: '73%',
     left: '15%',
     width: '10%',
@@ -43,10 +43,11 @@ const navItems = [
 
 // Mobile menu hotspots - positioned over the marquee image buttons
 const mobileMenuHotspots = [
-  { label: 'MOVIES', path: '/now-showing', top: '38%', height: '9%' },
-  { label: 'POSTERS', path: '/posters', top: '48%', height: '9%' },
-  { label: 'BIOGRAPHY', path: '/biography', top: '60%', height: '9%' },
-  { label: 'CONTACT', path: '/contact', top: '69%', height: '9%' },
+  { label: 'MOVIES', path: '/now-showing', top: '37%', height: '9%' },
+  { label: 'POSTERS', path: '/posters', top: '47%', height: '9%' },
+  { label: 'EXPERIMENTS', path: '/experiments', top: '57%', height: '9%' },
+  { label: 'BIOGRAPHY', path: '/biography', top: '67%', height: '9%' },
+  { label: 'CONTACT', path: '/contact', top: '77%', height: '9%' },
 ];
 
 function SignHotspot({ label, path, top, left, right, width, height, skewY }) {
@@ -84,7 +85,7 @@ export default function CinemaEnvironment({ children }) {
       <div className="h-screen w-screen relative overflow-hidden bg-black">
         {/* Background marquee image - contains full image */}
         <img
-          src="/assets/phonebg.jpg"
+          src="/assets/phonebg3_22.webp"
           alt=""
           className="absolute inset-0 w-full h-full object-contain"
         />
@@ -121,7 +122,7 @@ export default function CinemaEnvironment({ children }) {
       >
         {/* Background Theater Image */}
         <img
-          src="/assets/theatermainbackground.jpg"
+          src="/assets/theatermainbackground_3_22.webp"
           alt=""
           className="absolute inset-0 w-full h-full"
         />

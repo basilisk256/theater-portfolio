@@ -1,2 +1,5 @@
 *.psd
 *.PSD
+node_modules
+public/assets/shapestore.mp4
+public/assets/_originals

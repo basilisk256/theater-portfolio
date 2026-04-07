@@ -200,8 +200,18 @@ export default function PostersPage() {
 
   // Mobile layout - Full screen poster carousel
   if (isMobile) {
+    const handleTouchStart = (e) => { window._swipeStartX = e.touches[0].clientX; };
+    const handleTouchEnd = (e) => {
+      const diff = window._swipeStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) diff > 0 ? goToNextMobilePoster() : goToPrevMobilePoster();
+    };
+
     return (
-      <div className="h-screen bg-[#0a0806] flex flex-col relative overflow-hidden">
+      <div
+        className="h-screen bg-[#0a0806] flex flex-col relative overflow-hidden"
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      >
         {/* Full screen poster image - clickable */}
         <img
           src={mobilePosters[mobilePosterIndex].mobile}

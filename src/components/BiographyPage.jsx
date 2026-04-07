@@ -154,13 +154,23 @@ export default function BiographyPage() {
                   >
                     <div>
                       <h3 className="text-white/80 font-medium mb-1">Experience</h3>
-                      <ul className="space-y-0.5 text-xs">
-                        <li>Andrew Levitas — Trainee Director (Current)</li>
-                        <li>Cygnet Gin — Creative Producer</li>
-                        <li>Metalwork Pictures — Development Executive</li>
+                      <ul className="space-y-1 text-xs">
+                        <li>Fact Machine News Network — Director (Current)</li>
+                        <li>Cygnet Gin — Creative Producer (Current)</li>
+                        <li>Metalwork Pictures — Development Executive (Current)</li>
                         <li>JV8 Casting — Intern</li>
                         <li>Factory 25 — Intern</li>
                         <li>Caveh Zahedi — Animator</li>
+                      </ul>
+                    </div>
+
+                    <div>
+                      <h3 className="text-white/80 font-medium mb-1">Selected Films</h3>
+                      <ul className="space-y-1 text-xs">
+                        <li><em>The Jealous Boyfriend and a Man Under the Bed</em> — Director</li>
+                        <li><em>Fish Delivery #95</em> — Director</li>
+                        <li><em>Nocaretown</em> — Producer</li>
+                        <li><em>Listen</em> — Producer</li>
                       </ul>
                     </div>
 
@@ -173,10 +183,11 @@ export default function BiographyPage() {
                     <div>
                       <h3 className="text-white/80 font-medium mb-1">Skills</h3>
                       <div className="space-y-1 text-xs">
-                        <p><span className="text-white/60">Editing + Post:</span> Premiere Pro, DaVinci Resolve, After Effects, Adobe Suite</p>
-                        <p><span className="text-white/60">AI + Generative:</span> Runway, Kling, Stable Diffusion, Midjourney, Elevenlabs, Veo3</p>
-                        <p><span className="text-white/60">Creative:</span> Storyboarding, Directing, Animation, Script breakdown</p>
+                        <p><span className="text-white/60">Editing + Post Production:</span> Premiere Pro, DaVinci Resolve, After Effects, Adobe Suite, Metadata</p>
+                        <p><span className="text-white/60">AI + Generative Tools:</span> Runway, Kling, Stable Diffusion, Midjourney, Elevenlabs, Veo3, Prompt writing and iteration, Scene generation</p>
+                        <p><span className="text-white/60">Creative & Production:</span> Storyboarding, Post supervision, Branded content editing, Directing, Animation, Script breakdown, Casting workflows</p>
                         <p><span className="text-white/60">Coding:</span> CSS, HTML, JavaScript, Python</p>
+                        <p><span className="text-white/60">Other:</span> Google Suite, Photoshop, Canva, Backstage, Breakdown Express, Web & Deck Design</p>
                       </div>
                     </div>
 
@@ -196,6 +207,14 @@ export default function BiographyPage() {
                         className="text-[#c4a882] text-xs tracking-wider"
                       >
                         LINKEDIN
+                      </a>
+                      <a
+                        href="/LukeWolsko_Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#c4a882] text-xs tracking-wider"
+                      >
+                        RESUME
                       </a>
                     </div>
                   </div>
@@ -385,6 +404,7 @@ export default function BiographyPage() {
                   <div>
                     <h3 className="text-white/80 font-medium mb-2">Experience</h3>
                     <ul className="space-y-1">
+                      <li>Fact Machine News Network — Director (Current)</li>
                       <li>Cygnet Gin — Creative Producer (Current)</li>
                       <li>Metalwork Pictures — Development Executive (Current)</li>
                       <li>JV8 Casting — Intern</li>
@@ -396,10 +416,10 @@ export default function BiographyPage() {
                   <div>
                     <h3 className="text-white/80 font-medium mb-2">Selected Films</h3>
                     <ul className="space-y-1">
-                      <li><em>Listen</em> — Producer</li>
-                      <li><em>Nocaretown</em> — Producer</li>
                       <li><em>The Jealous Boyfriend and a Man Under the Bed</em> — Director</li>
                       <li><em>Fish Delivery #95</em> — Director</li>
+                      <li><em>Nocaretown</em> — Producer</li>
+                      <li><em>Listen</em> — Producer</li>
                     </ul>
                   </div>
 
@@ -436,6 +456,14 @@ export default function BiographyPage() {
                       className="text-[#c4a882] hover:text-white transition-colors tracking-wider"
                     >
                       LINKEDIN
+                    </a>
+                    <a
+                      href="/LukeWolsko_Resume.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#c4a882] hover:text-white transition-colors tracking-wider"
+                    >
+                      RESUME
                     </a>
                   </div>
                 </div>
