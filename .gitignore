@@ -1,56 +1,50 @@
-# Logs
-logs
+# --- Environment & Secrets ---
+.env
+.env.*
+!.env.example
+*.local
+
+# --- Dependency & Build Folders ---
+node_modules/
+dist/
+dist-ssr/
+.vercel/
+
+# --- Logs & Debugging ---
 *.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+Terminal Saved Output*.txt
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# --- Editor & System Files ---
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+Thumbs.db
 
-# Source/working files (not needed for deployment)
+# --- Design & Working Assets (Not for Deployment) ---
 *.psd
-*.png
-!public/**/*.png
+*.ai
 CHAT_LOG.md
-
-# Large working images in root (keep only public/assets)
-backgroundcontact.psd
-newbackdrop.psd
 Gemini_Generated_Image_*
-*.jpeg
-*.webp
-!public/**/*.jpeg
-!public/**/*.webp
 
-# Root level working files
-/Untitled*.jpg
-/unnamed.jpg
-/poster1.jpg
-/a5a675ea1bdccb3ae06c60a4c4f40776.jpg
-/art-deco-*.webp
-/full_hd_retina.jpeg
-/images.jpeg
-/K33wU.png
-/f33fb2ef-*.jpeg
-/P0DqC3*.webp
-.vercel
+# --- Root-Level Image Cleanup ---
+# This ignores images in the root while allowing them in public/assets
+/*.jpg
+/*.jpeg
+/*.png
+/*.webp
+/*.gif
+!public/assets/
 
-# Original uncompressed backups
-public/assets/_originals
-public/_originals
+# --- Specific Backups & Originals ---
+public/assets/_originals/
+public/_originals/
