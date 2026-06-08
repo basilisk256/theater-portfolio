@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useIsMobile } from '../hooks/useIsMobile';
+import { usePageMeta } from '../hooks/usePageMeta';
 
 const contactLinks = [
   { label: 'EMAIL', url: 'mailto:wolskoluke@gmail.com', top: '6.5%', left: '9%', width: '18%', height: '12%', skewY: -1 },
   { label: 'INSTAGRAM', url: 'https://www.instagram.com/lukewolsko/', top: '20.8%', left: '10.5%', width: '18%', height: '9%', skewY: -1 },
   { label: 'LINKEDIN', url: 'https://www.linkedin.com/in/luke-wolsko/', top: '31%', left: '10%', width: '19%', height: '9%', skewY: -1 },
-  { label: 'X', url: 'https://x.com/basilisk256', top: '42%', left: '10.5%', width: '5%', height: '9%', skewY: -9 },
   { label: 'YOUTUBE', url: 'https://www.youtube.com/@lukewolsko', top: '52%', left: '11%', width: '15%', height: '9%', skewY: -8.5 },
   { label: 'IMDB', url: 'https://www.imdb.com/name/nm15865993/', top: '63%', left: '11%', width: '10%', height: '9%', skewY: -8.5 },
   { label: 'LETTERBOXD', url: 'https://letterboxd.com/lukewolsko/', top: '71%', left: '10.5%', width: '20%', height: '9%', skewY: -9 },
@@ -19,7 +19,6 @@ const mobileContactLinks = [
   { label: 'EMAIL', url: 'mailto:wolskoluke@gmail.com', top: '8%', left: '10%', width: '70%', height: '10%', skewY: 4 },
   { label: 'INSTAGRAM', url: 'https://www.instagram.com/lukewolsko/', top: '21.5%', left: '10%', width: '85%', height: '8%', skewY: -1 },
   { label: 'LINKEDIN', url: 'https://www.linkedin.com/in/luke-wolsko/', top: '31.5%', left: '10%', width: '85%', height: '8%', skewY: -1 },
-  { label: 'X', url: 'https://x.com/basilisk256', top: '42.5%', left: '10%', width: '20%', height: '8%', skewY: -9 },
   { label: 'YOUTUBE', url: 'https://www.youtube.com/@lukewolsko', top: '52.5%', left: '10%', width: '70%', height: '8%', skewY: -3 },
   { label: 'IMDB', url: 'https://www.imdb.com/name/nm15865993/', top: '62.5%', left: '10%', width: '45%', height: '8%', skewY: -8.5 },
   { label: 'LETTERBOXD', url: 'https://letterboxd.com/lukewolsko/', top: '71.5%', left: '10%', width: '85%', height: '8%', skewY: -9 },
@@ -61,6 +60,10 @@ function SignHotspot({ label, url, path, top, left, width, height, skewY = 0, de
 
 
 export default function ContactSocials() {
+  usePageMeta({
+    title: 'Contact — Luke Wolsko',
+    description: 'Contact filmmaker Luke Wolsko. Email, Instagram, LinkedIn, YouTube, IMDb, and Letterboxd.',
+  });
   const isMobile = useIsMobile();
 
   // Image aspect ratio: 2816 x 1504
